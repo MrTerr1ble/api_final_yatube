@@ -15,7 +15,7 @@ from .serializers import (
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().select_related('author')
     serializer_class = PostSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = [IsAuthorOrReadOnly]
@@ -32,7 +32,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.all().select_related('post__author')
     serializer_class = CommentSerializer
     permission_classes = [IsAuthorOrReadOnly]
 
